@@ -1,8 +1,12 @@
+import { Link, useLoaderData } from "react-router-dom";
 import BookShelf from "./BookShelf";
-const BooksListPage = ({ openSearch, books }) => {
-  const crBooks = books.filter((b) => b.shelf === "currentlyReading");
-  const wantToReadBooks = books.filter((b) => b.shelf === "wantToRead");
-  const readBooks = books.filter((b) => b.shelf === "read");
+
+const BooksListPage = () => {
+  const data = useLoaderData();
+
+  const crBooks = data.books.filter((b) => b.shelf === "currentlyReading");
+  const wantToReadBooks = data.books.filter((b) => b.shelf === "wantToRead");
+  const readBooks = data.books.filter((b) => b.shelf === "read");
   return (
     <div className="list-books">
       <div className="list-books-title">
@@ -16,7 +20,7 @@ const BooksListPage = ({ openSearch, books }) => {
         </div>
       </div>
       <div className="open-search">
-        <a onClick={openSearch}>Add a book</a>
+        <Link to={`search`}>Add a book</Link>
       </div>
     </div>
   );

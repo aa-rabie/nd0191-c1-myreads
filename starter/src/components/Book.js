@@ -1,4 +1,13 @@
+import { useRevalidator } from "react-router-dom";
+import { update } from "../BooksAPI";
+
 const Book = ({ book }) => {
+  let revalidator = useRevalidator();
+
+  const updateBookShelf = async (e) => {
+    await update(book, e.target.value);
+    revalidator.revalidate();
+  };
   return (
     <li>
       <div className="book">
@@ -8,11 +17,14 @@ const Book = ({ book }) => {
             style={{
               width: "128px",
               height: "100%",
-              backgroundImage: `url(${book.thumbnail})`,
+              backgroundImage: `url(${book.imageLinks.thumbnail})`,
             }}
           ></div>
           <div className="book-shelf-changer">
-            <select>
+            <select
+              value={book.shelf || ""}
+              onChange={async (e) => await updateBookShelf(e)}
+            >
               <option value="none" disabled>
                 Move to...
               </option>
