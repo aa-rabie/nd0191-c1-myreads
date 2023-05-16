@@ -1,10 +1,11 @@
 import "./App.css";
 
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigation } from "react-router-dom";
 
 function App() {
+  const navigation = useNavigation();
   return (
-    <div className="app">
+    <div className={navigation.state === "loading" ? "app loading" : "app"}>
       <Outlet />
     </div>
   );

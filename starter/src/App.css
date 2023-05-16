@@ -175,3 +175,9 @@ body,
   text-align: center;
   font-size: 0.8em;
 }
+
+.loading {
+  opacity: 0.25;
+  transition: opacity 200ms;
+  transition-delay: 200ms;
+}
