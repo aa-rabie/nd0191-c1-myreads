@@ -33,14 +33,15 @@ export async function update(book, shelf) {
   return await resp.json();
 }
 
-export const search = (query, maxResults) =>
-  fetch(`${api}/search`, {
+export async function search(query, maxResults) {
+  let res = await fetch(`${api}/search`, {
     method: "POST",
     headers: {
       ...headers,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ query, maxResults }),
-  })
-    .then((res) => res.json())
-    .then((data) => data.books);
+  });
+  let data = await res.json();
+  return data.books;
+}

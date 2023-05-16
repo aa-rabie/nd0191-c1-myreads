@@ -19,6 +19,7 @@ const router = createBrowserRouter([
       {
         path: "search",
         element: <SearchPage />,
+        loader: getAll,
       },
     ],
   },

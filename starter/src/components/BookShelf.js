@@ -1,6 +1,16 @@
 import Book from "./Book";
+import { useRevalidator } from "react-router-dom";
+import { update } from "../BooksAPI";
+
 const BookShelf = ({ shelfTitle, books }) => {
   const hasBooks = books && books.length > 0;
+  const revalidator = useRevalidator();
+
+  const updateBookShelf = async (book, shelf) => {
+    book.shelf = shelf;
+    await update(book, shelf);
+    revalidator.revalidate();
+  };
 
   return hasBooks ? (
     <div className="bookshelf">
@@ -8,7 +18,11 @@ const BookShelf = ({ shelfTitle, books }) => {
       <div className="bookshelf-books">
         <ol className="books-grid">
           {books.map((book) => (
-            <Book key={book.id} book={book} />
+            <Book
+              key={book.id}
+              book={book}
+              onShelfChangedAsync={updateBookShelf}
+            />
           ))}
         </ol>
       </div>
